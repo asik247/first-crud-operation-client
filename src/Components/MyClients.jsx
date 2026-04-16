@@ -2,22 +2,33 @@ import React from 'react';
 
 const MyClients = () => {
     // HandlerSubmit 
-    const handlerSubmit = (e)=>{
+    const handlerSubmit = (e) => {
         e.preventDefault();
         const name = e.target.name.value;
         const email = e.target.email.value;
-        console.log(name,email);
+        const newUsers = { name, email };
+        fetch("http://localhost:3000/users", {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(newUsers)
+
+        }).then(res => res.json())
+            .then(data => console.log(data))
+
+
     }
     return (
         <div>
-             <div className="hero-content ">
-                   
-            <div className="hero bg-base-200 min-h-screen">
+            <div className="hero-content ">
 
-               
+                <div className="hero bg-base-200 min-h-screen">
+
+
                     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
                         <div className="card-body">
-                            <form onSubmit={handlerSubmit}>  
+                            <form onSubmit={handlerSubmit}>
                                 <fieldset className="fieldset">
                                     <label className="label">Name</label>
                                     <input type="text" name='name' className="input" placeholder="Name" />
