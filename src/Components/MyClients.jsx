@@ -34,6 +34,20 @@ const MyClients = ({ fetchUsers }) => {
 
 
     }
+    // handle detelte
+    const handleDelete = (id)=>{
+        console.log('Delete Btn Clicked',id);
+        fetch(`http://localhost:3000/users/${id}`,{
+            method:'DELETE'
+        }).then(res=>res.json()).then(data=>{
+            // console.log(data)
+            if(data.deletedCount){
+                alert('Delete Successfully')
+                const reminingUsre = users.filter(user=>user._id !==id)
+                setUsers(reminingUsre)
+            }
+        })
+    }
     return (
         <div>
             <div className="hero-content ">
@@ -56,8 +70,11 @@ const MyClients = ({ fetchUsers }) => {
                             </form>
                             {/* show peopleInfo */}
                             {
-                                users.map(user => <p key={user._id}>{user.name} : {user.email}</p>)
+                                users.map(user => <p key={user._id}>{user.name} : {user.email}
+                                 <button className='btn btn-primary gap-2' onClick={()=>handleDelete(user._id)}>X</button>
+                                </p>)
                             }
+                           
                         </div>
                     </div>
                 </div>
