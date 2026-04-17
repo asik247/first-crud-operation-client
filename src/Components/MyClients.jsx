@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { use } from 'react';
 
-const MyClients = () => {
+const MyClients = ({fetchUsers}) => {
+    const initialUsers = use(fetchUsers);
+    console.log(initialUsers);
     // HandlerSubmit 
     const handlerSubmit = (e) => {
         e.preventDefault();
@@ -16,6 +18,7 @@ const MyClients = () => {
 
         }).then(res => res.json())
             .then(data => console.log('After data in server',data))
+            e.target.reset();
 
 
     }

@@ -1,10 +1,10 @@
 import React from 'react';
 import MyClients from './Components/MyClients';
-
+const fetchUsers = fetch('http://localhost:3000/users').then(res=>res.json())
 const App = () => {
   return (
     <div>
-      <MyClients></MyClients>
+      <MyClients fetchUsers={fetchUsers}></MyClients>
     </div>
   );
 };
