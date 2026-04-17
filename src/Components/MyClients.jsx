@@ -15,7 +15,7 @@ const MyClients = () => {
             body: JSON.stringify(newUsers)
 
         }).then(res => res.json())
-            .then(data => console.log(data))
+            .then(data => console.log('After data in server',data))
 
 
     }
