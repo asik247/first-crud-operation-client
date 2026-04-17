@@ -1,8 +1,10 @@
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
+import { data } from 'react-router';
 
-const MyClients = ({fetchUsers}) => {
+const MyClients = ({ fetchUsers }) => {
     const initialUsers = use(fetchUsers);
-    console.log(initialUsers);
+    // console.log(initialUsers);
+    const [users, setUsers] = useState(initialUsers);
     // HandlerSubmit 
     const handlerSubmit = (e) => {
         e.preventDefault();
@@ -17,8 +19,18 @@ const MyClients = ({fetchUsers}) => {
             body: JSON.stringify(newUsers)
 
         }).then(res => res.json())
-            .then(data => console.log('After data in server',data))
-            e.target.reset();
+            .then(data => {
+                console.log('After data in server', data)
+                if (data.insertedId) {
+                    alert("Add DB")
+                    newUsers._id = data.insertedId;
+                    const updateUsers = [...users,newUsers];
+                    setUsers(updateUsers)
+                }
+            })
+
+
+        e.target.reset();
 
 
     }
@@ -42,6 +54,10 @@ const MyClients = ({fetchUsers}) => {
                                     <button className="btn btn-neutral mt-4">Add User</button>
                                 </fieldset>
                             </form>
+                            {/* show peopleInfo */}
+                            {
+                                users.map(user => <p key={user._id}>{user.name} : {user.email}</p>)
+                            }
                         </div>
                     </div>
                 </div>
