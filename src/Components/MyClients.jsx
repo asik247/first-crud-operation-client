@@ -1,5 +1,5 @@
 import React, { use, useState } from 'react';
-import { data } from 'react-router';
+import { data, NavLink } from 'react-router';
 
 const MyClients = ({ fetchUsers }) => {
     const initialUsers = use(fetchUsers);
@@ -71,6 +71,7 @@ const MyClients = ({ fetchUsers }) => {
                             {/* show peopleInfo */}
                             {
                                 users.map(user => <p key={user._id}>{user.name} : {user.email}
+                                <NavLink to={`/users/${user._id}`} className={'text-red-500 font-bold'}>Details</NavLink>
                                  <button className='btn btn-primary gap-2' onClick={()=>handleDelete(user._id)}>X</button>
                                 </p>)
                             }
